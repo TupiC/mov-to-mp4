@@ -1,0 +1,9 @@
+services:
+  converter:
+    image: jrottenberg/ffmpeg:4.4-alpine
+    volumes:
+      - ./input:/input
+      - ./output:/output
+      - ./convert.sh:/convert.sh
+    entrypoint: ["/bin/sh", "/convert.sh"]
+    restart: always
