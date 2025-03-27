@@ -1,6 +1,6 @@
 services:
   converter:
-    image: jrottenberg/ffmpeg:4.4-alpine
+    image: jrottenberg/ffmpeg:7.1-alpine
     volumes:
       - ./input:/input
       - ./output:/output
