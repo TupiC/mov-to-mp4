@@ -1,10 +1,18 @@
 #!/bin/sh
 
-for file in /input/*.mov; do
+PARAMS="-c:v libvpx-vp9 -crf 40 -b:v 2M -movflags +faststart -vf scale=-1:1080 -an"
+
+for file in /input/*.mp4; do
   if [ -f "$file" ]; then
-    output_file=/output/$(basename "$file" .mov).mp4
-    # ffmpeg -i "$file" -c:v libx264 -c:a aac "$output_file" && rm -f "$file"
-    # ffmpeg -i "$file" -vcodec h264 -acodec aac $output_file
-    ffmpeg -i "$file" -c:v libx264 -c:a aac -vf format=yuv420p -movflags +faststart $output_file
+    BASENAME=$(basename "$file" .mp4)
+    
+    SAFE_PARAMS=$(echo "$PARAMS" | tr ' ' '_')
+    
+    OUTPUT_FILE="/output/${BASENAME}_${SAFE_PARAMS}.webm"
+    
+    echo "Processing file: $file"
+    echo "Output file: $OUTPUT_FILE"
+    
+    ffmpeg -i "$file" $PARAMS "$OUTPUT_FILE"
   fi
 done

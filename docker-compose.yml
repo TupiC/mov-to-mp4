@@ -6,4 +6,3 @@ services:
       - ./output:/output
       - ./convert.sh:/convert.sh
     entrypoint: ["/bin/sh", "/convert.sh"]
-    restart: always
